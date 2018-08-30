@@ -53,6 +53,8 @@
   <ItemGroup>
      <Compile Include="Assets\_Models\Droids\Droid.cs" />
      <Compile Include="Assets\_Scenes\World\UIManager.cs" />
+     <Compile Include="Assets\_Utilities\DroidFactory.cs" />
+     <Compile Include="Assets\_Utilities\Singleton.cs" />
      <Compile Include="Assets\Mapbox SDK\GoogleARCore\Examples\ComputerVision\Scripts\ComputerVisionController.cs" />
      <Compile Include="Assets\Mapbox SDK\GoogleARCore\Examples\ComputerVision\Scripts\EdgeDetector.cs" />
      <Compile Include="Assets\Mapbox SDK\GoogleARCore\Examples\ComputerVision\Scripts\TextureReader.cs" />
