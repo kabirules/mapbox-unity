@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,10 @@ public class Droid : MonoBehaviour {
 	[SerializeField] private int attack = 0;
 	[SerializeField] private int defense = 0;
 	[SerializeField] private int hp = 10;
+
+	private void Start() {
+		DontDestroyOnLoad(this);
+	}
 
 	public float SpawnRate {
 		get {return spawnRate;}
@@ -27,6 +32,11 @@ public class Droid : MonoBehaviour {
 	}		
 
 	private void OnMouseDown() {
-
+		PocketDroidSceneManager[] managers = FindObjectsOfType<PocketDroidSceneManager>();
+		foreach (PocketDroidSceneManager pocketDroidSceneManager in managers) {
+			if (pocketDroidSceneManager.gameObject.activeSelf) {
+				pocketDroidSceneManager.droidTapped(this.gameObject); 
+			}
+		}
 	}
 }

@@ -12,6 +12,19 @@ public class DroidFactory : Singleton<DroidFactory> {
 	[SerializeField] private float minRange = 5.0f;
 	[SerializeField] private float maxRange = 50.0f;
 
+	private List<Droid> liveDroids = new List<Droid>();
+	private Droid selectedDroid;
+
+	public List<Droid> LiveDroids {
+		get {
+			return liveDroids;
+		}
+	}
+
+	public Droid SelectedDroid {
+		get { return selectedDroid;}
+	}
+
 	private void Awake() {
         Assert.IsNotNull(availableDroids);
 		Assert.IsNotNull(player);
@@ -19,15 +32,30 @@ public class DroidFactory : Singleton<DroidFactory> {
 
 	// Use this for initialization
 	void Start () {
-		
+		for (int i = 0; i < startingDroids; i++) {
+			InstantiateDroid();
+		}
+		StartCoroutine(GenerateDroids());
 	}
+
+	public void DroidWasSelected(Droid droid) {
+		selectedDroid = droid;
+	}
+
+	private IEnumerator GenerateDroids() {
+		while (true) {
+			InstantiateDroid();
+			yield return new WaitForSeconds(waitTime);
+		}
+	}
+
 
 	private void InstantiateDroid() {
 		int index = Random.Range(0, availableDroids.Length);
 		float x = player.transform.position.x + GenerateRange();
 		float y = player.transform.position.y + GenerateRange();
 		float z = player.transform.position.z + GenerateRange();
-		Instantiate(availableDroids[index], new Vector3(z, y, z), Quaternion.identity);
+		liveDroids.Add(Instantiate(availableDroids[index], new Vector3(z, y, z), Quaternion.identity));
 	}
 
 	private float GenerateRange() {
